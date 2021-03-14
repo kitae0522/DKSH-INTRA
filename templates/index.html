@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Basic Settings-->
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1.5, shrink-to-fit=yes, default-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Mobile -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#386eef">
+    <meta name="msapplication-navbutton-color" content="#386eef">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#386eef">
+
+    <!-- SEO -->
+    <meta name="title" content="단국대학교부속소프트웨어고등학교 인트라넷" class="meta-title">
+    <meta name="apple-mobile-web-app-title" content="DKSH">
+    <meta name="description" lang="ko" content="여기를 눌러 링크를 확인하세요." />
+    <meta name="keywords" content="단국대학교부속소프트웨어고등학교, DKSH">
+    <meta name="author" content="Song Kitae">
+
+    <!-- KaKao, Facebook -->
+    <meta property="og:title" content="단국대학교부속소프트웨어고등학교 인트라넷">
+    <meta property="og:description" content="여기를 눌러 링크를 확인하세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kitae0522.pythonanywhere.com">
+    <meta property="og:image" content="{{ url_for('static', filename='img/dksh-main.png') }}">
+
+    <!-- twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="단국대학교부속소프트웨어고등학교 인트라넷">
+    <meta name="twitter:description" content="여기를 눌러 링크를 확인하세요.">
+    <meta name="twitter:url" content="https://kitae0522.pythonanywhere.com">
+    <meta name="twitter:image" content="{{ url_for('static', filename='img/dksh-main.png') }}">
+
+    <!-- css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <!-- script -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+   {% if title %}
+    <title>단대소프트고 인트라넷 - {{title}}</title>
+   {% endif %}
+</head>
+
+<body onload="printClass()">
+    <div class="background" style="margin-top: 0px;">
+        <div class="background-text">
+            <h1 style="font-size: 4em;">
+                <span id="clock"><b></b></span>
+            </h1>
+        </div>
+    </div>
+    <span id="scroll" class="demo">
+        <a href="#meal"><span></span> </a>
+    </span>
+    <div id="meal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <center>
+                        <h1 style="font-size: 3em;color: #386eef;margin-top: 150px;margin-bottom: 150px;">오늘의 급식</h1>
+                        {% if meal_data[1] %}
+                        {% for idx in meal_data[0] %}
+                        <h3 style="font-size: 1em">{{idx}}</h3>
+                        {% endfor %}
+                        {% else %}
+                        <h3 style="font-size: 1em">{{meal_data[0]}}</h3>
+                        {% endif %}
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p style="font-size: 15px;">ⓒ 2021 SONG</p>
+    </footer>
+
+<script>
+
+var time_job = "";
+function printClass() {
+    
+    var clock = document.getElementById("clock");
+    var currentDate = new Date();
+    var currentHours = currentDate.getHours();
+    var currentMinute = currentDate.getMinutes();
+
+    if(currentHours == 8 && currentMinute < 30) { time_job = "아침조회 시간"; }
+    else if(currentHours == 8 && currentMinute >= 30) {
+        if(currentHours == 9 && currentMinute < 30) { time_job = "1교시"; }}
+    else if(currentHours == 9 && currentMinute == 30) { 
+        if(currentHours == 10 && currentMinute < 30) { time_job = "2교시"; }}
+    else if(currentHours == 10 && currentMinute == 30) {
+        if(currentHours == 11 && currentMinute < 20) { time_job = "3교시"; }}
+    else if(currentHours == 11 && currentMinute == 20) {
+        if(currentHours == 12 && currentMinute < 10) { time_job = "점심시간"; }}
+    else if(currentHours == 12 && currentMinute == 10) {
+        if(currentHours == 13 && currentMinute < 10) { time_job = "4교시"; }}
+    else if(currentHours == 13 && currentMinute == 10) {
+        if(currentHours == 14 && currentMinute < 10) { time_job = "5교시"; }}
+    else if(currentHours == 14 && currentMinute == 10) {
+        if(currentHours == 15 && currentMinute < 10) { time_job = "6교시"; }}
+    else if(currentHours == 15 && currentMinute == 10) {
+        if(currentHours == 16 && currentMinute < 10) { time_job = "7교시"; }}
+    else { time_job = "쉬는시간"; }
+
+    clock.innerHTML = "지금은 " + time_job + "입니다.";
+    setTimeout("printClass()",1000);
+}
+</script>
+
+</body>
+</html>
